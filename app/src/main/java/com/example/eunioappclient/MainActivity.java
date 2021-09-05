@@ -28,6 +28,9 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
     private String name;
     private FusedLocationProviderClient fusedLocationClient;
@@ -92,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-       // mLocationRequest.setInterval(0);
-        //mLocationRequest.setFastestInterval(0);
+        mLocationRequest.setInterval(600000);
+        mLocationRequest.setFastestInterval(10);
         //mLocationRequest.setNumUpdates(1);
 
         //fusedLocationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
@@ -142,4 +145,14 @@ public class MainActivity extends AppCompatActivity {
                 LocationManager.NETWORK_PROVIDER
         );
     }
+
+    private void sendLocation() {
+        URL url = new URL(“https://getpantry.cloud/apiv1/pantry/eed42050-989b-424b-8638-a2dec10c4be4/basket/location”);
+        HttpURLConnection client = null;
+        try {
+            client = (HttpURLConnection) url.openConnection();
+        }
+    }
+
+
 }
